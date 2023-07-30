@@ -25,13 +25,17 @@ def download_model(model_name):
     tokenizer.save_pretrained(output_folder)
 
 
-if __name__ == "__main__":
-    # Parse command-line arguments
-    if len(sys.argv) > 1:
-        model_name = sys.argv[1]
-    else:
-        model_name = "gpt2"
+def process_text_file(file_path):
+    with open(file_path, 'r') as file:
+        for line in file:
+            model_name = line.strip()  # Remove leading/trailing whitespace and newlines
+            download_model(model_name)
+            print(f"Model and tokenizer for",
+                  f"'{model_name}' have been saved.")
 
-    # Download and save the model and tokenizer
-    download_model(model_name)
-    print(f"Model and tokenizer for '{model_name}' have been saved.")
+
+if __name__ == "__main__":
+
+    # Replace with the actual path of your text file
+    text_file_path = "./models.txt"
+    process_text_file(text_file_path)
